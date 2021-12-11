@@ -1,6 +1,7 @@
 # Word Embeddings
 
 # Repository Link
+https://github.com/TachyonAgnes/Mini-Project3
 
 ## Development Environment Setup
 ### Prerequisites
