@@ -1,7 +1,7 @@
 # Word Embeddings
 
 # Repository Link
-https://github.com/TachyonAgnes/Mini-Project3
+https://github.com/TachyonAgnes/Comp472-Mini-Project3
 
 ## Development Environment Setup
 ### Prerequisites
