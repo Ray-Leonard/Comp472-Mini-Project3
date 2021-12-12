@@ -21,6 +21,10 @@ def evalW2vecModel(w2VecModel, testDataSet):
     wFile = open(w2VecModel + 'details.csv', 'w')
     fileCsvWriter = csv.writer(wFile)
 
+    # 4.initialize CV
+    C = 0
+    V = 80
+
     # divide test data
     for row in testCsvReader:
         """ 
@@ -46,6 +50,7 @@ def evalW2vecModel(w2VecModel, testDataSet):
                 print("The option " + item + " is not in provided model")
         if counter == 0:
             label = 'guess'
+            V -= 1
 
         # check if question exist
         try:
@@ -61,23 +66,35 @@ def evalW2vecModel(w2VecModel, testDataSet):
             if label != "guess":
                 if bestOption == qWithAns[1]:
                     label = "correct"
+                    C += 1
                 else:
                     label = "wrong"
 
         except KeyError:
             label = 'guess'
+            V -= 1
             bestOption = choice(options)
-            print("The question " + qWithAns[0] + " is not in provided model")
 
         row = [qWithAns[0], qWithAns[1], bestOption, label]
-        fileCsvWriter.writerows(row)
+        fileCsvWriter.writerow(row)
+
+    # header = [w2VecModel, len(preTrainedModel), C, V]
+    # fileCsvWriter.writerow(header)
+
     # close file
     testData.close()
     wFile.close()
 
+    return len(preTrainedModel), C, V, C/V if C != 0 else 0
+
 
 def main():
-    evalW2vecModel("word2vec-ruscorpora-300", 'synonyms.csv')
+    w2VecModel = "word2vec-ruscorpora-300"
+    wAnalysisFile = open('analysis.csv', 'w')
+    analysisCsvWriter = csv.writer(wAnalysisFile)
+    modelLength, C, V, rate = evalW2vecModel(w2VecModel, 'synonyms.csv')
+    header = [w2VecModel, modelLength, C, V, rate]
+    analysisCsvWriter.writerow(header)
 
 
 if __name__ == "__main__":
