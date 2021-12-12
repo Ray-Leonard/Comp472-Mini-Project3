@@ -41,7 +41,7 @@ def evalW2vecModel(w2VecModel, testDataSet):
             try:
                 temp = preTrainedModel[item]
                 counter += 1
-            except ValueError:
+            except KeyError:
                 print("For question " + qWithAns[0])
                 print("The option " + item + " is not in provided model")
         if counter == 0:
@@ -64,7 +64,7 @@ def evalW2vecModel(w2VecModel, testDataSet):
                 else:
                     label = "wrong"
 
-        except ValueError:
+        except KeyError:
             label = 'guess'
             bestOption = choice(options)
             print("The question " + qWithAns[0] + " is not in provided model")
@@ -77,7 +77,7 @@ def evalW2vecModel(w2VecModel, testDataSet):
 
 
 def main():
-    evalW2vecModel("word2vec-google-news-300", 'synonyms.csv')
+    evalW2vecModel("word2vec-ruscorpora-300", 'synonyms.csv')
 
 
 if __name__ == "__main__":
