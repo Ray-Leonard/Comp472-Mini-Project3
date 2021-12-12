@@ -3,6 +3,7 @@ import numpy as np
 from numpy.linalg import norm
 from gensim import similarities, downloader
 import csv
+import gc
 # https://radimrehurek.com/gensim/
 
 # called by main each time after Experiment() has been called
@@ -112,14 +113,14 @@ def Experiment(model=None, modelName=''):
         # record the first three fields of the detail csv file (questionWord, answerWord, modelAnswerWord)
         detailRowToWrite = [questionWord, answerWord, modelAnswerWord]
         # at last, see if the model gets the correct answer and update corresponding counters
-        if answerWord == modelAnswerWord and label != 'guess':
+        if answerWord == modelAnswerWord and label == '':
             label = 'correct'
             correctLabelCount += 1
-        elif answerWord != modelAnswerWord and label != 'guess':
+        elif answerWord != modelAnswerWord and label == '':
             label = 'wrong'
 
         if label == 'guess':
-            correctLabelCount -= 1
+            notGuessCount -= 1
 
         detailRowToWrite.append(label)
         model_detail_output.writerow(detailRowToWrite)
@@ -140,6 +141,36 @@ def main():
     word2vecEmbedding = downloader.load("word2vec-google-news-300")
     C, V = Experiment(word2vecEmbedding, "word2vec-google-news-300")
     Analysis('word2vec-google-news-300', len(word2vecEmbedding), C, V)
+    # free memory
+    del word2vecEmbedding
+    gc.collect()
+
+    # different corpora but same embedding size
+    fasttextWiki = downloader.load("fasttext-wiki-news-subwords-300")
+    C, V = Experiment(fasttextWiki, "fasttext-wiki-news-subwords-300")
+    Analysis('fasttext-wiki-news-subwords-300', len(fasttextWiki), C, V)
+    del fasttextWiki
+    gc.collect()
+
+    gloveWiki = downloader.load("glove-wiki-gigaword-300")
+    C, V = Experiment(gloveWiki, "glove-wiki-gigaword-300")
+    Analysis('glove-wiki-gigaword-300', len(gloveWiki), C, V)
+    del gloveWiki
+    gc.collect()
+
+
+    # same corpora but different embedding size
+    twitter25Embedding = downloader.load("glove-twitter-25")
+    C, V = Experiment(twitter25Embedding, "glove-twitter-25")
+    Analysis('glove-twitter-25', len(twitter25Embedding), C, V)
+    del twitter25Embedding
+    gc.collect()
+
+    twitter200Embedding = downloader.load("glove-twitter-200")
+    C, V = Experiment(twitter200Embedding, "glove-twitter-200")
+    Analysis('glove-twitter-200', len(twitter200Embedding), C, V)
+    del twitter200Embedding
+    gc.collect()
 
 if __name__ == "__main__":
     main()
