@@ -89,7 +89,7 @@ def evalW2vecModel(w2VecModel, testDataSet):
 
 
 def main():
-    w2VecModel = "word2vec-ruscorpora-300"
+    w2VecModel = "word2vec-google-news-300"
     wAnalysisFile = open('analysis.csv', 'w')
     analysisCsvWriter = csv.writer(wAnalysisFile)
     modelLength, C, V, rate = evalW2vecModel(w2VecModel, 'synonyms.csv')
