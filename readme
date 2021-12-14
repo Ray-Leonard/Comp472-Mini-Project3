@@ -1,0 +1,27 @@
+Project Name:Comp472 Mini Project 3 Word Embedding
+
+Due Date: Dec 13 2021
+
+Team Information:
+oniichan_daisuki
+
+Team Member:
+Jiarui Li
+Jiawei Yao
+Zisen Ling
+
+Git Repo Link:
+https://github.com/TachyonAgnes/Comp472-Mini-Project3
+
+Project Goal:
+To use word embeddings to solve a Synonym test automatically and see if deep learning models could achieve
+better performance than human does, and to compare performance of different training models for understanding
+factors that affect word embedding
+The project  has the following steps:
+ Step 1: Install and include Gemsin library and all the training models
+ Step 2: Apply the training models on the synonym test. If any of words of the test are not trained, the models will guess the answer.
+ Otherwise,they will compare similarity of solution words and choose the word that has the highest similarity, and we will check if the model-choosing
+ words match those answer provided.At the end, we will calculate the performance of each model.
+ Step 3: Output and evaluate the performance of models in analysis.csv.
+
+Thank You. Have a good one!
