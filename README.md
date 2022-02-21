@@ -1,4 +1,5 @@
 # Word Embeddings
+Uses Word2Vec and other word embeddings presented on web and cosine similarity to determine the closest synonym of a given word. 
 
 # Repository Link
 https://github.com/TachyonAgnes/Comp472-Mini-Project3
